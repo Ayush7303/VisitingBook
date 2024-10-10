@@ -1,7 +1,27 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "F:\\VisitingBook\\VisitingBook\\VisitingBook.csproj": {}
+=======
+<<<<<<< HEAD
+    "F:\\MICM\\VisitingBook\\VisitingBook.csproj": {}
+  },
+  "projects": {
+    "F:\\MICM\\VisitingBook\\VisitingBook.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\MICM\\VisitingBook\\VisitingBook.csproj",
+        "projectName": "VisitingBook",
+        "projectPath": "F:\\MICM\\VisitingBook\\VisitingBook.csproj",
+        "packagesPath": "C:\\Users\\SHYAM\\.nuget\\packages\\",
+        "outputPath": "F:\\MICM\\VisitingBook\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\SHYAM\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj": {}
+>>>>>>> e3ebbac4570fb9981eb67539404ff4920c806de8
   },
   "projects": {
     "F:\\VisitingBook\\VisitingBook\\VisitingBook.csproj": {
@@ -14,7 +34,12 @@
         "outputPath": "F:\\VisitingBook\\VisitingBook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\ayush\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 5c7d4697c1bcb95ec2026f1cd24d8c8cf8f693b9
+>>>>>>> e3ebbac4570fb9981eb67539404ff4920c806de8
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +47,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -35,11 +59,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -64,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
