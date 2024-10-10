@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "F:\\MICM\\VisitingBook\\VisitingBook.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\SHYAM\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj": {}
+  },
+  "projects": {
+    "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj",
+        "projectName": "VisitingBook",
+        "projectPath": "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "E:\\MICM\\VisitBook\\VisitingBook\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 5c7d4697c1bcb95ec2026f1cd24d8c8cf8f693b9
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

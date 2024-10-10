@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "S7r8LvVEtssFo+VGArylnj1bBc8EeJljqvcMEnlbGuCMZ4PwR5rPcFr0xXPvKN+TuJps5VCXFW0EkIF33LU9/w==",
   "success": true,
   "projectFilePath": "F:\\MICM\\VisitingBook\\VisitingBook.csproj",
+=======
+  "dgSpecHash": "YKK4KjZeSe8=",
+  "success": true,
+  "projectFilePath": "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj",
+>>>>>>> 5c7d4697c1bcb95ec2026f1cd24d8c8cf8f693b9
   "expectedPackageFiles": [],
   "logs": []
 }
