@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace VisitingBook.Models
 {
-    public class Maitri
+    public class Srushti
     {
-        public int MyProperty { get; set; }
-
-        public string POP{get;set;}
+        public int sid { get; set; }
     }
 }
