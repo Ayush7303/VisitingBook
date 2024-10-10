@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\VisitingBook\\VisitingBook\\VisitingBook.csproj": {}
+    "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj": {}
   },
   "projects": {
-    "F:\\VisitingBook\\VisitingBook\\VisitingBook.csproj": {
+    "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\VisitingBook\\VisitingBook\\VisitingBook.csproj",
+        "projectUniqueName": "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj",
         "projectName": "VisitingBook",
-        "projectPath": "F:\\VisitingBook\\VisitingBook\\VisitingBook.csproj",
-        "packagesPath": "C:\\Users\\ayush\\.nuget\\packages\\",
-        "outputPath": "F:\\VisitingBook\\VisitingBook\\obj\\",
+        "projectPath": "E:\\MICM\\VisitBook\\VisitingBook\\VisitingBook.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "E:\\MICM\\VisitBook\\VisitingBook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ayush\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
