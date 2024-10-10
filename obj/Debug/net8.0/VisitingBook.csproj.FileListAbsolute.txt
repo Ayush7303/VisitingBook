@@ -1,3 +1,11 @@
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.GeneratedMSBuildEditorConfig.editorconfig
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.AssemblyInfoInputs.cache
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.AssemblyInfo.cs
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.csproj.CoreCompileInputs.cache
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.MvcApplicationPartsAssemblyInfo.cache
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.RazorAssemblyInfo.cache
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.RazorAssemblyInfo.cs
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.sourcelink.json
 F:\VisitingBook\VisitingBook\bin\Debug\net8.0\appsettings.Development.json
 F:\VisitingBook\VisitingBook\bin\Debug\net8.0\appsettings.json
 F:\VisitingBook\VisitingBook\bin\Debug\net8.0\VisitingBook.staticwebassets.runtime.json
@@ -6,13 +14,6 @@ F:\VisitingBook\VisitingBook\bin\Debug\net8.0\VisitingBook.deps.json
 F:\VisitingBook\VisitingBook\bin\Debug\net8.0\VisitingBook.runtimeconfig.json
 F:\VisitingBook\VisitingBook\bin\Debug\net8.0\VisitingBook.dll
 F:\VisitingBook\VisitingBook\bin\Debug\net8.0\VisitingBook.pdb
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.GeneratedMSBuildEditorConfig.editorconfig
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.AssemblyInfoInputs.cache
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.AssemblyInfo.cs
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.csproj.CoreCompileInputs.cache
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.MvcApplicationPartsAssemblyInfo.cache
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.RazorAssemblyInfo.cache
-F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.RazorAssemblyInfo.cs
 F:\VisitingBook\VisitingBook\obj\Debug\net8.0\staticwebassets.build.json
 F:\VisitingBook\VisitingBook\obj\Debug\net8.0\staticwebassets.development.json
 F:\VisitingBook\VisitingBook\obj\Debug\net8.0\staticwebassets\msbuild.VisitingBook.Microsoft.AspNetCore.StaticWebAssets.props
