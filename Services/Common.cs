@@ -50,28 +50,41 @@ namespace VisitingBook.Services
                 var oGuid = Guid.NewGuid();
                 var oVbCookie = request.Cookies["VbCookie"];
                 if (oVbCookie != null) oGuid = Guid.Parse(oVbCookie);
-                // string getquery = "SELECT * FROM dbo.SessionTB";
-                string getquery="SELECT convert(nvarchar(500),[SessionID]) as SessionID,* FROM SessionTB";
+
+               
+                string getquery = "SELECT convert(nvarchar(500),[SessionID]) as SessionID,* FROM SessionTB";
                 SessionTB oVbSession = DapperORM<SessionTB>.ReturnList<SessionTB>(getquery).FirstOrDefault(s => s.SessionID == oVbCookie);
-                // SessionTB objSessionTB =null;
-                if (oVbSession == null)
+
+                // Check if 'EmailID' exists in the dictionary
+                if (pDtn.ContainsKey("EmailID"))
                 {
-                    oVbSession = new SessionTB();
-                    oVbSession.SessionKey = "EmailID";
-                    oVbSession.SessionID = oGuid.ToString();
-                    oVbSession.SessionValue = pDtn["EmailID"].ToString();
-                     string insertquery = "INSERT INTO SessionTB([SessionID],[SessionKey],[SessionValue]) VALUES (@SessionID,@SessionKey,@SessionValue)";
-                    var result = DapperORM<SessionTB>.AddOrUpdate(insertquery, oVbSession, null);
-                    response.Cookies.Append("VbCookie", oGuid.ToString());                    
+                    if (oVbSession == null)
+                    {
+                        // Insert new session record
+                        oVbSession = new SessionTB();
+                        oVbSession.SessionKey = "EmailID";
+                        oVbSession.SessionID = oGuid.ToString();
+                        oVbSession.SessionValue = pDtn["EmailID"].ToString();
+
+                        string insertquery = "INSERT INTO SessionTB([SessionID],[SessionKey],[SessionValue]) VALUES (@SessionID,@SessionKey,@SessionValue)";
+                        var result = DapperORM<SessionTB>.AddOrUpdate(insertquery, oVbSession, null);
+                        response.Cookies.Append("VbCookie", oGuid.ToString());
+                    }
+                    else
+                    {
+                        // Update existing session record
+                        oVbSession.SessionValue = Newtonsoft.Json.JsonConvert.SerializeObject(pDtn);
+                        string updatequery = "UPDATE SessionTB SET [SessionValue]=@SessionData";
+                        var result = DapperORM<SessionTB>.AddOrUpdate(updatequery, oVbSession, null);
+                    }
                 }
                 else
                 {
-                    oVbSession.SessionValue = Newtonsoft.Json.JsonConvert.SerializeObject(pDtn);
-                    string insertquery = "Update Table SessionTB SET [SessionValue]=@SessionData";
-                    var result = DapperORM<SessionTB>.AddOrUpdate(insertquery, oVbSession, null);
+                    throw new KeyNotFoundException("The 'EmailID' key is missing from the session data.");
                 }
             }
         }
+
         public static Common NewObj(HttpRequest pRequest, HttpResponse pResponse)
         {
             var obj = new Common();

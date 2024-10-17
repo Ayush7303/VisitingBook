@@ -43,7 +43,8 @@ namespace VisitingBook.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(IFormCollection formcollection)
         {
-            string LoginForUser = formcollection["LoginForUser"].ToString();            
+            string LoginForUser = formcollection["LoginForUser"].ToString(); 
+            Console.WriteLine("LoginForUser",LoginForUser);
             string EmailID = LoginForUser.Split(',')[0];
             string Password = formcollection["Password"].ToString();
             var data = new {
@@ -66,7 +67,7 @@ namespace VisitingBook.Controllers
                 if (apiRespone == "1")
                 {
                     Common c = Common.NewObj(Request,Response);
-                    c.SetSession("EmialID",EmailID);
+                    c.SetSession("EmailID",EmailID);
                 }
             }
             return View();
