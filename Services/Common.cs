@@ -33,11 +33,13 @@ namespace VisitingBook.Services
             {
                 var oVbCookie = request.Cookies["VbCookie"];
                 if (oVbCookie == null) return new Dictionary<string, string>();
-                string sqlquery = "SELECT convert(nvarchar(500),[SessionID]) as SessionID,* FROM SessionTB";
-                var oVbSession = DapperORM<SessionTB>.ReturnList<SessionTB>(sqlquery).FirstOrDefault(s => s.SessionID == oVbCookie);
+                string sqlquery = "SELECT * FROM SessionTB";
+                Console.WriteLine(oVbCookie);
+                var oVbSession = DapperORM<SessionTB>.ReturnList<SessionTB>(sqlquery).FirstOrDefault(s => s.SessionID == Guid.Parse(oVbCookie));
+                
                 if (oVbSession == null) return new Dictionary<string, string>();
                 else return new Dictionary<string, string>{
-                    {"SessionID",oVbSession.SessionID},
+                    {"SessionID",oVbSession.SessionID.ToString()},
                     {"SessionData",oVbSession.SessionValue}
                 };
             }
@@ -50,10 +52,9 @@ namespace VisitingBook.Services
                 var oGuid = Guid.NewGuid();
                 var oVbCookie = request.Cookies["VbCookie"];
                 if (oVbCookie != null) oGuid = Guid.Parse(oVbCookie);
-
                
-                string getquery = "SELECT convert(nvarchar(500),[SessionID]) as SessionID,* FROM SessionTB";
-                SessionTB oVbSession = DapperORM<SessionTB>.ReturnList<SessionTB>(getquery).FirstOrDefault(s => s.SessionID == oVbCookie);
+                string getquery = "SELECT * FROM SessionTB";
+                SessionTB oVbSession = DapperORM<SessionTB>.ReturnList<SessionTB>(getquery).FirstOrDefault(s => s.SessionID == Guid.Parse(oVbCookie));
 
                 // Check if 'EmailID' exists in the dictionary
                 if (pDtn.ContainsKey("EmailID"))
@@ -63,7 +64,7 @@ namespace VisitingBook.Services
                         // Insert new session record
                         oVbSession = new SessionTB();
                         oVbSession.SessionKey = "EmailID";
-                        oVbSession.SessionID = oGuid.ToString();
+                        oVbSession.SessionID = oGuid;
                         oVbSession.SessionValue = pDtn["EmailID"].ToString();
 
                         string insertquery = "INSERT INTO SessionTB([SessionID],[SessionKey],[SessionValue]) VALUES (@SessionID,@SessionKey,@SessionValue)";
@@ -73,9 +74,9 @@ namespace VisitingBook.Services
                     else
                     {
                         // Update existing session record
-                        oVbSession.SessionValue = Newtonsoft.Json.JsonConvert.SerializeObject(pDtn);
-                        string updatequery = "UPDATE SessionTB SET [SessionValue]=@SessionData";
-                        var result = DapperORM<SessionTB>.AddOrUpdate(updatequery, oVbSession, null);
+                        oVbSession.SessionValue = pDtn["EmailID"].ToString();
+                        // string updatequery = "UPDATE SessionTB SET [SessionValue]= @SessionValue";
+                        // var result = DapperORM<SessionTB>.AddOrUpdate(updatequery, oVbSession, null);
                     }
                 }
                 else
