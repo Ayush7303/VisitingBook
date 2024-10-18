@@ -68,6 +68,8 @@ namespace VisitingBook.Controllers
                 {
                     Common c = Common.NewObj(Request,Response);
                     c.SetSession("EmailID",EmailID);
+                    var disp = c.GetSession("EmailID");
+                    System.Console.WriteLine("disp",disp);
                 }
             }
             return View();

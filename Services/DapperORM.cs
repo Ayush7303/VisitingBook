@@ -1,17 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dapper;
 using System.Data.SqlClient;
-using System.Data;
-// using System.Data;
+using System.IO;
+using Dapper;
+using Microsoft.Extensions.Configuration;
 
 namespace VisitingBook.Services
-{    
+{
     public static class DapperORM<T> where T : class
     {
-        private static readonly string ConnectionString = "";
+        private static readonly string ConnectionString;
 
         static DapperORM()
         {
@@ -20,29 +18,34 @@ namespace VisitingBook.Services
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-#pragma warning disable CS8601 // Possible null reference assignment.
+            // Use the correct connection string from the configuration
             ConnectionString = config.GetConnectionString("ToolConnectionString");
-#pragma warning restore CS8601 // Possible null reference assignment.
         }
 
-        public static IEnumerable<T> ReturnList<T>(string sqlquery, DynamicParameters param=null)
+        public static IEnumerable<T> ReturnList(string sqlquery, DynamicParameters param)
         {
             using (SqlConnection sqlCon = new SqlConnection(ConnectionString))
             {
                 sqlCon.Open();
-                return sqlCon.Query<T>(sqlquery).ToList();
+                // Pass the parameters to the Query method
+                return sqlCon.Query<T>(sqlquery, param);
             }
         }
-        public static int AddOrUpdate(string sqlquery,T ModelClass,DynamicParameters dynamicParameters)
+
+        public static int AddOrUpdate(string sqlquery, T modelClass, DynamicParameters dynamicParameters = null)
         {
-            using(SqlConnection sqlcon = new SqlConnection(ConnectionString))
+            using (SqlConnection sqlCon = new SqlConnection(ConnectionString))
             {
-                sqlcon.Open();
-                if(ModelClass!= null)
-                    return sqlcon.Execute(sqlquery,ModelClass);
+                sqlCon.Open();
+                if (modelClass != null)
+                {
+                    return sqlCon.Execute(sqlquery, modelClass);
+                }
                 else
-                    return sqlcon.Execute(sqlquery,dynamicParameters);
+                {
+                    return sqlCon.Execute(sqlquery, dynamicParameters);
+                }
             }
-        }     
+        }
     }
 }
