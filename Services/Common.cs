@@ -91,11 +91,12 @@ namespace VisitingBook.Services
         {
             var oDtn = GetDBSessionDictionary();
             if (!oDtn.Keys.Contains(pKey))
+            {
                 oDtn.Add(pKey, pValue);
+                SetDBSessionDictionary(oDtn);
+            }
             else
-                oDtn[pKey] = pValue;
-
-            SetDBSessionDictionary(oDtn);
+                oDtn[pKey] = pValue;    
         }
     }
 }
