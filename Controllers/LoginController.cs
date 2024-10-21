@@ -70,7 +70,7 @@ namespace VisitingBook.Controllers
                     var disp = c.GetSession("EmailID");
                     ViewData["SessionEmail"] = disp;
                     Console.Write("session ehjdhejhd " + ViewData["SessionEmail"]);
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index","Dashboard");
                 }
             }
             return View();
