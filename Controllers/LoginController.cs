@@ -44,7 +44,7 @@ namespace VisitingBook.Controllers
         public async Task<IActionResult> Login(IFormCollection formcollection)
         {
             string LoginForUser = formcollection["LoginForUser"].ToString(); 
-            Console.WriteLine("LoginForUser",LoginForUser);
+            Console.WriteLine("LoginForUser"+LoginForUser);
             string EmailID = LoginForUser.Split(',')[0];
             string Password = formcollection["Password"].ToString();
             var data = new {
@@ -63,13 +63,14 @@ namespace VisitingBook.Controllers
                     apiRespone = await respone.Content.ReadAsStringAsync();
                     Console.WriteLine(apiRespone);
                 }
-
                 if (apiRespone == "1")
                 {
                     Common c = Common.NewObj(Request,Response);
                     c.SetSession("EmailID",EmailID);
                     var disp = c.GetSession("EmailID");
-                    System.Console.WriteLine("disp",disp);
+                    ViewData["SessionEmail"] = disp;
+                    Console.Write("session ehjdhejhd " + ViewData["SessionEmail"]);
+                    return RedirectToAction("Index","Home");
                 }
             }
             return View();
