@@ -72,6 +72,10 @@ namespace VisitingBook.Controllers
                     Console.Write("session ehjdhejhd " + ViewData["SessionEmail"]);
                     return RedirectToAction("Index","Dashboard");
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = "Invalid Email and Password"; 
+                }
             }
             return View();
         }

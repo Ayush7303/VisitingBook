@@ -29,11 +29,12 @@
                 <a href="#" class="h1"><b>Visiting</b>Book</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                
+                 <p class="login-box-msg" style="color: red;"> @ViewBag.ErrorMessage</p>
 
                 <form method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username" name="LoginForUser">
+                        <input type="text" class="form-control" placeholder="Username" name="LoginForUser" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -41,7 +42,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password" name="Password">
+                        <input type="password" class="form-control" placeholder="Password" name="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -61,13 +62,14 @@
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
+                      
                         <!-- /.col -->
-                    </div>
+                    </div>       
             </div>
             </form>
 
-            <p class="mb-1">
-                <a href="forgot-password.html">I forgot my password</a>
+            <p class="mb-3 ml-3 ">
+                <a href="forgot-password.html ">I forgot my password</a>
             </p>
         </div>
         <!-- /.card-body -->
