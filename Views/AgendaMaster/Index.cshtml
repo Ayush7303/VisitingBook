@@ -1,3 +1,5 @@
+@model IEnumerable<VisitingBook.Models.AgendaMaster>
+
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Agenda</h3>
@@ -38,31 +40,23 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Rendering engine</th>
+                    <th> @Html.DisplayNameFor(model => model.FirstOrDefault().Title)</th>
+                    <th> @Html.DisplayNameFor(model => model.FirstOrDefault().Description)</th>
                     <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>U</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td> @Html.DisplayFor(modelItem => item.Title)</td>
+                        <td> @Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>U</td>
+                    </tr>
+                }
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-            </tfoot>
+          
         </table>
 
     </div>
@@ -229,8 +223,7 @@
 
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="visitday2" role="tabpanel"
-                        aria-labelledby="visitday2-tab">
+                    <div class="tab-pane fade" id="visitday2" role="tabpanel" aria-labelledby="visitday2-tab">
                         <form>
                             <div class="row">
                                 <div class="col-md-6">
@@ -257,8 +250,7 @@
 
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="visitday3" role="tabpanel"
-                        aria-labelledby="visitday3-tab">
+                    <div class="tab-pane fade" id="visitday3" role="tabpanel" aria-labelledby="visitday3-tab">
                         <form>
                             <div class="row">
                                 <div class="col-md-6">
@@ -308,6 +300,50 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#addAgendaForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Prepare the form data
+            var formData = {
+                Title: $('#agendaTitle').val(),
+                Description: $('#desc').val()
+            };
+
+            $.ajax({
+                url: '/AgendaMaster/Create',  // The URL to the Create action
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData), // Send the form data as JSON
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+
+                        // Optionally, refresh the DataTable or add the new agenda to the table
+                        var table = $('#example1').DataTable(); // Assuming example1 is the DataTable for agenda list
+
+                        // Add the new agenda data to the table (if applicable)
+                        table.row.add([
+                            formData.Title,
+                            formData.Description
+                            // Add other fields if necessary
+                        ]).draw(false);
+
+                        // Reset the form
+                        $('#addAgendaForm')[0].reset();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while saving the agenda.');
+                }
+            });
         });
     });
 </script>

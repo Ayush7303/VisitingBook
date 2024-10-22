@@ -78,9 +78,9 @@ namespace VisitingBook.Controllers
                 }
                 if (apiRespone == "1")
                 {
-                    Common c = Common.NewObj(Request, Response);
-                    c.SetSession("EmailID", EmailID);
-                    var disp = c.GetSession("EmailID");
+                    Common CurrentSession = Common.NewObj(Request, Response);
+                    CurrentSession.SetSession("EmailID", EmailID);   
+                    var disp = CurrentSession.GetSession("EmailID");
                     ViewData["SessionEmail"] = disp;
                     Console.Write("session ehjdhejhd " + ViewData["SessionEmail"]);
                     return RedirectToAction("Index", "Dashboard");
