@@ -117,40 +117,42 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="@Url.ActionLink("Index","Home")" class="nav-link">
-                <i class="nav-icon fa-solid fa-house"></i>
-                <p>
-                  Home
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>My Account</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Agenda</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../index2.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Visit</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../../index3.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manage Document</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+  <a href="@Url.ActionLink("Index","Home")" class="nav-link">
+    <i class="nav-icon fa-solid fa-house"></i>
+    <p>
+      Home
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview" style="display: none;">
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <p>My Account</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="@Url.ActionLink("Index","AgendaMaster")" class="nav-link">
+        <p>Manage Agenda</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="@Url.ActionLink("Index","Visit")" class="nav-link">
+        <p>Manage Visit</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <p>Manage Document</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link">
+        <p>Manage Log</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
             
           </ul>
         </nav>

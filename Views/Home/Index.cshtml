@@ -1,8 +1,89 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<style>
+    /* Styles for the parent card that holds all smaller cards */
+    .parent-card {
+        width: 100%; /* Full width */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #f9f9f9; /* Background color for the parent card */
+        margin-bottom: 20px;
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    /* Container inside the parent card to hold the smaller cards */
+    .card-container {
+        display: flex;
+        justify-content: flex-start; /* Aligns the smaller cards to the left */
+        flex-wrap: wrap;
+        gap: 20px; /* Space between the smaller cards */
+    }
+
+    /* Styles for each individual card */
+    .card {
+        width: 150px; /* Make each smaller card a square */
+        height: 150px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        text-decoration: none; /* Remove underline from links */
+        color: inherit; /* Ensure the color of text is inherited */
+        transition: transform 0.2s ease; /* Add hover effect */
+    }
+
+    /* Hover effect for the individual smaller cards */
+    .card:hover {
+        transform: scale(1.05); /* Slightly enlarge the card on hover */
+    }
+
+    /* Icon style */
+    .nav-icon {
+        font-size: 40px; /* Adjust icon size */
+        margin-bottom: 10px;
+    }
+
+    /* Title style */
+    .card-title {
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+
+<!-- Parent card that holds all smaller cards -->
+<div class="parent-card">
+    @* <h3>My Card Collection</h3> <!-- Optional title for the parent card --> *@
+
+    <!-- Card Container for holding all the smaller individual cards -->
+    <div class="card-container">
+        <!-- Individual Card 1 -->
+        <a href="#" class="card">
+            <i class="nav-icon fa-solid fa-user-tie"></i>
+            <p class="card-title">My Account</p>
+        </a>
+        <!-- Individual Card 2 -->
+        <a href="@Url.ActionLink("Index","AgendaMaster")" class="card">
+            <i class="nav-icon fa-solid fa-heading"></i>
+            <p class="card-title">Manage Agenda</p>
+        </a>
+        <!-- Individual Card 3 -->
+        <a href="@Url.ActionLink("Index","Visit")" class="card">
+            <i class="nav-icon fa-solid fa-handshake"></i>
+            <p class="card-title">Manage Visit</p>
+        </a>
+        <!-- Individual Card 4 -->
+        <a href="#" class="card">
+            <i class="nav-icon fa-solid fa-file-signature"></i>
+            <p class="card-title">Manage Document</p>
+        </a>
+        <!-- Individual Card 5 -->
+        <a href="#" class="card">
+            <i class="nav-icon fa-solid fa-calendar-day"></i>
+            <p class="card-title">Manage Log</p>
+        </a>
+        
+    </div>
 </div>
