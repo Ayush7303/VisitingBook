@@ -23,7 +23,7 @@ namespace VisitingBook.Controllers
             _logger = logger;
         }
 
-        
+
         public IActionResult Index()
         {
             return View();
@@ -43,38 +43,51 @@ namespace VisitingBook.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(IFormCollection formcollection)
         {
-            string LoginForUser = formcollection["LoginForUser"].ToString(); 
-            Console.WriteLine("LoginForUser"+LoginForUser);
+            string LoginForUser = formcollection["LoginForUser"].ToString();
+            Console.WriteLine("LoginForUser" + LoginForUser);
             string EmailID = LoginForUser.Split(',')[0];
             string Password = formcollection["Password"].ToString();
-            var data = new {
+
+            if (string.IsNullOrEmpty(LoginForUser))
+            {
+                ViewBag.LoginForUser = "EmailID is required.";
+                return View();  
+            }
+
+            if (string.IsNullOrEmpty(Password))
+            {
+                ViewBag.Password = "Password is required.";
+                return View();  
+            }
+            var data = new
+            {
                 EmailID = EmailID,
                 Password = Password
             };
 
             string jsonObj = JsonConvert.SerializeObject(data);
 
-            using(HttpClient httpClient = new HttpClient())
+            using (HttpClient httpClient = new HttpClient())
             {
-                var content = new StringContent(jsonObj,Encoding.UTF8,@"application/json"); 
+                var content = new StringContent(jsonObj, Encoding.UTF8, @"application/json");
                 string apiRespone;
-                using(var respone = await httpClient.PostAsync("http://edusprinttools.edusprint.in/ProjectManagement/Login/VerifyEmailPassword/",content))
-                {                    
+                using (var respone = await httpClient.PostAsync("http://edusprinttools.edusprint.in/ProjectManagement/Login/VerifyEmailPassword/", content))
+                {
                     apiRespone = await respone.Content.ReadAsStringAsync();
                     Console.WriteLine(apiRespone);
                 }
                 if (apiRespone == "1")
                 {
-                    Common c = Common.NewObj(Request,Response);
-                    c.SetSession("EmailID",EmailID);
+                    Common c = Common.NewObj(Request, Response);
+                    c.SetSession("EmailID", EmailID);
                     var disp = c.GetSession("EmailID");
                     ViewData["SessionEmail"] = disp;
                     Console.Write("session ehjdhejhd " + ViewData["SessionEmail"]);
-                    return RedirectToAction("Index","Dashboard");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Invalid Email and Password"; 
+                    ViewBag.ErrorMessage = "Invalid Email and Password";
                 }
             }
             return View();
