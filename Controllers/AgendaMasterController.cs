@@ -23,7 +23,7 @@ namespace VisitingBook.Controllers
         public IActionResult Index()
         {
             string sqlQuery = "SELECT Title,Description from AgendaMaster";
-            var agenda = DapperORM<AgendaMaster>.ReturnList(sqlQuery,null);
+            var agenda = DapperORM<AgendaMaster>.ReturnList(sqlQuery, null);
             return View(agenda);
         }
 
@@ -32,38 +32,80 @@ namespace VisitingBook.Controllers
         {
             return View("Error!");
         }
+        public IActionResult Details(int AgendaMasterID)
+        {
+            string sqlQuery = "SELECT * FROM AgendaMaster WHERE AgendMasterID = @AgendaMasterID";
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@AgendaMasterID", AgendaMasterID);
+            var agendaById = DapperORM<AgendaMaster>.ReturnList(sqlQuery, param);
+            return View(agendaById);
+
+        }
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(AgendaMaster agendaMaster)
         {
-          
-                string sqlQuery = @"
-                    INSERT INTO AgendaMaster 
-                    (Title, Description, CreatedOn, CreatedBy, UpdatedOn, UpdatedBy) 
-                    VALUES 
-                    (@Title, @Description, @CreatedOn, @CreatedBy, @UpdatedOn, @UpdatedBy)";
 
-                    string CreatedBy = "Admin";
-                    string UpdatedBy = "Admin";
-                
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@Title", agendaMaster.Title);
-                parameters.Add("@Description", agendaMaster.Description);
-                parameters.Add("@CreatedOn", DateTime.Now);
-                parameters.Add("@CreatedBy",CreatedBy);
-                parameters.Add("@UpdatedOn", DateTime.Now);
-                parameters.Add("@UpdatedBy", UpdatedBy);
+            agendaMaster.CreatedOn = DateTime.Now;
+            agendaMaster.UpdatedOn = DateTime.Now;
+            agendaMaster.CreatedBy = TempData["SessionEmail"].ToString();
+            agendaMaster.UpdatedBy = TempData["SessionEmail"].ToString();
 
-                // Execute the query using DapperORM
-                DapperORM<AgendaMaster>.AddOrUpdate(sqlQuery, null, parameters);
 
-                // Redirect to Index or return a success message
-                return RedirectToAction("Index");
+            string sqlQuery = @"
+        INSERT INTO AgendaMaster 
+        (Title, Description, CreatedOn, CreatedBy, UpdatedOn, UpdatedBy) 
+        VALUES 
+        (@Title, @Description, @CreatedOn, @CreatedBy, @UpdatedOn, @UpdatedBy)";
 
+
+            DapperORM<AgendaMaster>.AddOrUpdate(sqlQuery, agendaMaster);
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int AgendaMasterID)
+        {
+            string sqlQuery = "DELETE FROM AgendaMAster WHERE AgendaMasterID = @AgendaMasterID";
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@AgendaMasterID", AgendaMasterID);
+            DapperORM<AgendaMaster>.ReturnList(sqlQuery, param);
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult Edit(int AgendaMasterID)
+        {
+            var agendaByID = Details(AgendaMasterID);
+            return View(agendaByID);
+        }
+        [HttpPost]
+        public IActionResult Edit(AgendaMaster agendaMaster)
+        {
+            agendaMaster.UpdatedOn = DateTime.Now;
+            agendaMaster.UpdatedBy = TempData["SessionEmail"].ToString();
+
+            string sqlQuery = @"
+    UPDATE AgendaMaster 
+    SET 
+        Title = @Title,
+        Description = @Description,
+        UpdatedOn = @UpdatedOn,
+        UpdatedBy = @UpdatedBy
+    WHERE 
+        AgendaMasterID = @AgendaMasterID";
+
+            DynamicParameters param = new DynamicParameters();
+            param.Add("@AgendaMasterID", agendaMaster.AgendaMasterID);  
+
+            DapperORM<AgendaMaster>.AddOrUpdate(sqlQuery, agendaMaster);  
+
+            return RedirectToAction("Index");
         }
     }
 }
