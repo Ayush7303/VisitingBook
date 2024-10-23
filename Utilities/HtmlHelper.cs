@@ -70,7 +70,7 @@ namespace VisitingBook.Utilities
                 </script>
             ");
 
-            return new HtmlString(stringBuilder.ToString());
+             return new HtmlString(stringBuilder.ToString());
         }
     }
 }
