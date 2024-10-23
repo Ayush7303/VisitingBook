@@ -1,0 +1,35 @@
+@page
+@* @model VisitingBook.Views.AgendaMaster.Create *@
+@model VisitingBook.Models.AgendaMaster
+
+<div>
+  @using (Html.BeginForm("Create", "AgendaMaster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+ {
+     @Html.AntiForgeryToken()
+     <div class="form-horizontal">
+     @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+     @Html.HiddenFor(model => model.AgendaMasterID)
+
+     <div class="form-group row">
+         @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+         <div class="col-sm-9">
+             @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+         </div>
+     </div>
+
+     <div class="form-group row">
+         @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "col-sm-3 col-form-label" })
+         <div class="col-sm-9">
+             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+         </div>
+     </div>
+      <div class="form-group row">
+     <div class="col-sm-9 offset-sm-3">
+         <button type="submit" class="btn btn-primary btn-block">Save</button>
+     </div>
+ </div>
+     </div>
+    }
+</div>

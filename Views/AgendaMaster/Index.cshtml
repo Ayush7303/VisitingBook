@@ -1,3 +1,6 @@
+@model IEnumerable<VisitingBook.Models.AgendaMaster>
+@using VisitingBook.Utilities
+
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Agenda</h3>
@@ -9,8 +12,8 @@
     </div>
     <div class="card-body">
         <form>
-            <div class="row">
-                <div class="col-md-6">
+ 
+            <div class="col-md-6">
                     <div class="form-group">
                         <label for="agendaTitle">Title</label>
                         <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Title">
@@ -38,31 +41,23 @@
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
-                    <th>Rendering engine</th>
+                    <th> @Html.DisplayNameFor(model => model.FirstOrDefault().Title)</th>
+                    <th> @Html.DisplayNameFor(model => model.FirstOrDefault().Description)</th>
                     <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>U</td>
-                </tr>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td> @Html.DisplayFor(modelItem => item.Title)</td>
+                        <td> @Html.DisplayFor(modelItem => item.Description)</td>
+                        <td>U</td>
+                    </tr>
+                }
             </tbody>
-            <tfoot>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-            </tfoot>
+          
         </table>
     </div>
 </div>
@@ -76,33 +71,215 @@
         </div>
     </div>
     <div class="card-body">
+    <form id="agendaForm">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="agendaTitle">Title</label>
+                    <input type="text" class="form-control" id="Title" name="Title" placeholder="Enter Title" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="desc">Description</label>
+                    <textarea class="form-control" name="Description" id="desc" rows="3" placeholder="Enter Description" required></textarea>
+                </div>
+            </div>
+        </div>
+          <button type="submit" id="agendainsert" class="btn btn-primary">Save</button>
+    </form>
+</div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Add Visit</h3>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body">
         <form>
+
             <div class="row">
                 <div class="col-md-6">
+
                     <div class="form-group">
-                        <label for="agendaTitle">Title</label>
-                        <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Title">
+                        <label for="School Group">School Group</label>
+                        <select class="form-control select2" style="width: 100%;">
+                            <option selected="selected">MICM</option>
+                            <option>SCD</option>
+                            <option>RFG</option>
+                            <option>GH</option>
+                            <option>MH</option>
+                            <option>ADC</option>
+                            <option>RTY</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <textarea id="location" class="form-control" rows="3"
+                                placeholder="Enter Location"></textarea>
+                        </div>
                     </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
                     <div class="form-group">
+                        <label for="School Group">School</label>
+                        <select class="form-control select2" style="width: 100%;">
+                            <option selected="selected">MICM</option>
+                            <option>SCD</option>
+                            <option>RFG</option>
+                            <option>GH</option>
+                            <option>MH</option>
+                            <option>ADC</option>
+                            <option>RTY</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <div class="form-group">
                             <label for="desc">Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                            <textarea id="desc" class="form-control" rows="3"
+                                placeholder="Enter Description"></textarea>
                         </div>
                     </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="isMultipleDays">
+                        <label class="form-check-label" for="isMultipleDays"><strong>Is Multiple Days</strong></label>
+                    </div>
                 </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
 
+            </div>
+            <button type="submit" id="agendainsert" class="btn btn-primary">Save</button>
+            
         </form>
 
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary card-tabs">
+            <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="day1-tab" data-toggle="pill" href="#visitday1" role="tab"
+                            aria-controls="visitday1" aria-selected="false">21-10-2024</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="day2-tab" data-toggle="pill" href="#visitday2" role="tab"
+                            aria-controls="visitday2" aria-selected="false">22-10-2024</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="day3-tab" data-toggle="pill" href="#visitday3" role="tab"
+                            aria-controls="visitday3" aria-selected="false">23-10-2024</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">`
+                <div class="tab-content" id="custom-tabs-five-tabContent">
+                    <div class="tab-pane fade show active" id="visitday1" role="tabpanel"
+                        aria-labelledby="visitday1-tab">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="agenda">Agenda</label>
+                                        <select class="form-control select2" style="width: 100%;">
+                                            <option selected="selected">Training</option>
+                                            <option>Discussion</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="desc">Description</label>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="Enter Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
 
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="visitday2" role="tabpanel"
+                        aria-labelledby="visitday2-tab">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="agenda">Agenda</label>
+                                        <select class="form-control select2" style="width: 100%;">
+                                            <option selected="selected">Inquiry</option>
+                                            <option>Report Card</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="desc">Description</label>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="Enter Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
 
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="visitday3" role="tabpanel"
+                        aria-labelledby="visitday3-tab">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="agenda">Agenda</label>
+                                        <select class="form-control select2" style="width: 100%;">
+                                            <option selected="selected">Canteen</option>
+                                            <option>Fees</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="desc">Description</label>
+                                            <textarea class="form-control" rows="3"
+                                                placeholder="Enter Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -120,6 +297,50 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#addAgendaForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Prepare the form data
+            var formData = {
+                Title: $('#agendaTitle').val(),
+                Description: $('#desc').val()
+            };
+
+            $.ajax({
+                url: '/AgendaMaster/Create',  // The URL to the Create action
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData), // Send the form data as JSON
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+
+                        // Optionally, refresh the DataTable or add the new agenda to the table
+                        var table = $('#example1').DataTable(); // Assuming example1 is the DataTable for agenda list
+
+                        // Add the new agenda data to the table (if applicable)
+                        table.row.add([
+                            formData.Title,
+                            formData.Description
+                            // Add other fields if necessary
+                        ]).draw(false);
+
+                        // Reset the form
+                        $('#addAgendaForm')[0].reset();
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert('An error occurred while saving the agenda.');
+                }
+            });
         });
     });
 </script>

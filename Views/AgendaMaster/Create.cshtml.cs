@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 
-namespace VisitingBook.Views.Visit
+namespace VisitingBook.Views.AgendaMaster
 {
-    public class Index : PageModel
+    public class Create : PageModel
     {
-        private readonly ILogger<Index> _logger;
+        private readonly ILogger<Create> _logger;
 
-        public Index(ILogger<Index> logger)
+        public Create(ILogger<Create> logger)
         {
             _logger = logger;
         }
