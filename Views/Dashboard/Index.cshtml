@@ -1,9 +1,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using VisitingBook.Utilities
-@Html.CustomAjax("/Dashboard/GetEmployeeCount", "GET", "employeeCountDiv", "employeeCountTrigger")
 <!-- Content Wrapper. Contains page content -->
+@using VisitingBook.Utilities
 <div class="Wrapper">
     <div>
         <!-- Content Header (Page header) -->
@@ -20,16 +19,15 @@
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
+           </div>
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <div id="visitCountDiv">
-                                @Html.CustomAjax("/Dashboard/GetVisitCount", "GET", "visitCountDiv",
-                                         "visitCountTrigger")
-                            </div>
+                            <h3 id="visitCountDiv">Loading...</h3>
+                            @Html.CustomAjax("/Dashboard/GetVisitCount", "GET", "visitCountDiv")
                             <p>Total Visits</p>
                         </div>
                         <div class="icon">
@@ -43,12 +41,12 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>@ViewBag.ScheduledVisits</h3>
-
-                            <p>Scheduled Visits</p>
+                            <h3 id="pendingVisitCountDiv">Loading...</h3>
+                            @Html.CustomAjax("/Dashboard/GetPendingVisitCount", "GET", "pendingVisitCountDiv")
+                            <p>Pending Visits</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-calendar-days"></i>
+                            <i class="fa fa-clock-o"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -58,12 +56,12 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>@ViewBag.PendingVisits</h3>
-
-                            <p>Pending Visits</p>
+                            <h3 id="scheduledVisitCountDiv">Loading...</h3>
+                                @Html.CustomAjax("/Dashboard/GetScheduledVisitCount", "GET", "scheduledVisitCountDiv")
+                            <p>Scheduled Visits</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-clock-o"></i>
+                            <i class="fa fa-calendar-days"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -74,8 +72,8 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3 id="employeeCountDiv"></h3>
-
+                           <h3 id="employeeCountDiv">Loading...</h3>
+@Html.CustomAjax("/Dashboard/GetEmployeeCount", "GET", "employeeCountDiv")
                             <p>Employees</p>
                         </div>
                         <div class="icon">
@@ -86,39 +84,40 @@
                 </div>
             </div>
 
-            <div class="card card-danger">
-                <div class="card-header">
-                    <h3 class="card-title">Pie Chart</h3>
+            <div style="display:flex; gap: 25px;">
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chartjs-size-monitor">
-                        <div class="chartjs-size-monitor-expand">
-                            <div class=""></div>
-                        </div>
-                        <div class="chartjs-size-monitor-shrink">
-                            <div class=""></div>
-                        </div>
-                    </div>
-                    <canvas id="pieChart"
-                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 326px;"
-                        width="407" height="312" class="chartjs-render-monitor"></canvas>
-                </div>
-                <!-- /.card-body -->
-            </div>
-
-            <div>
-                <div class="card card-success">
+                <div class="card card-danger" style="width: 100%;height: max-content;">
                     <div class="card-header">
-                        <h3 class="card-title">Bar Chart</h3>
+                        <h3 class="card-title">Pie Chart</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="pieChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 326px;"
+                            width="407" height="312" class="chartjs-render-monitor"></canvas>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+
+                <div class="card card-success" style="width: 100%; height: max-content;">
+                    <div class="card-header">
+                        <h3 class="card-title">Stacked Bar Chart</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -139,9 +138,9 @@
                                     <div class=""></div>
                                 </div>
                             </div>
-                            <canvas id="barChart"
-                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 388px;"
-                                width="485" height="312" class="chartjs-render-monitor"></canvas>
+                            <canvas id="stackedBarChart"
+                                style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 326px;"
+                                width="407" height="312" class="chartjs-render-monitor"></canvas>
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -152,9 +151,7 @@
 
 
 <script>
-    $(document).on('ajax:success', '#employeeCountTrigger', function (event, data) {
-        $('#employeeCountDiv').text(data); // Update the count display
-    });
+    
     $(function () {
 
         var areaChartData = {
@@ -243,7 +240,7 @@
         //-------------
         //- BAR CHART -
         //-------------
-        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+
         var barChartData = $.extend(true, {}, areaChartData)
         var temp0 = areaChartData.datasets[0]
         var temp1 = areaChartData.datasets[1]
@@ -256,10 +253,30 @@
             datasetFill: false
         }
 
-        new Chart(barChartCanvas, {
+
+        //---------------------
+        //- STACKED BAR CHART -
+        //---------------------
+        var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
+        var stackedBarChartData = $.extend(true, {}, barChartData)
+
+        var stackedBarChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                xAxes: [{
+                    stacked: true,
+                }],
+                yAxes: [{
+                    stacked: true
+                }]
+            }
+        }
+
+        new Chart(stackedBarChartCanvas, {
             type: 'bar',
-            data: barChartData,
-            options: barChartOptions
+            data: stackedBarChartData,
+            options: stackedBarChartOptions
         })
 
     })
