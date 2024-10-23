@@ -78,11 +78,10 @@ namespace VisitingBook.Controllers
                 }
                 if (apiRespone == "1")
                 {
-                    Common c = Common.NewObj(Request, Response);
-                    c.SetSession("EmailID", EmailID);
-                    var disp = c.GetSession("EmailID");
-                    ViewData["SessionEmail"] = disp;
-                    Console.Write("session ehjdhejhd " + ViewData["SessionEmail"]);
+                    Common CurrentSession = Common.NewObj(Request, Response);
+                    CurrentSession.SetSession("EmailID", EmailID);
+                    var disp = CurrentSession.GetSession("EmailID");
+                    HttpContext.Session.SetString("Name", disp.Split('@')[0].Replace('.',' ').ToUpper());
                     return RedirectToAction("Index", "Dashboard");
                 }
                 else
