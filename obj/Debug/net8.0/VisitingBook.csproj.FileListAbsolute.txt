@@ -29,3 +29,4 @@ F:\VisitingBook\VisitingBook\obj\Debug\net8.0\refint\VisitingBook.dll
 F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.pdb
 F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.genruntimeconfig.cache
 F:\VisitingBook\VisitingBook\obj\Debug\net8.0\ref\VisitingBook.dll
+F:\VisitingBook\VisitingBook\obj\Debug\net8.0\VisitingBook.csproj.AssemblyReference.cache
