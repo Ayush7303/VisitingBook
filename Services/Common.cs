@@ -55,23 +55,26 @@ namespace VisitingBook.Services
             return oVbSession?.ToDictionary(o => o.SessionKey, o => o.SessionValue) ?? new Dictionary<string, string>();
         }
 
-        protected void SetDBSessionDictionary(Dictionary<string, string> pDtn)
-        {
-            // Check if 'EmailID' exists in the dictionary
-            foreach (KeyValuePair<string, string> selectedDicitionary in pDtn)
-            {
-                Console.WriteLine(selectedDicitionary);
+       protected async Task SetDBSessionDictionaryAsync(Dictionary<string, string> pDtn)
+{
+    // Check if 'EmailID' exists in the dictionary
+    foreach (KeyValuePair<string, string> selectedDicitionary in pDtn)
+    {
+        Console.WriteLine(selectedDicitionary);
 
-                var dynamicParameters = new DynamicParameters();
-                dynamicParameters.Add("SessionID", SessionID);
-                dynamicParameters.Add("SessionKey", selectedDicitionary.Key);
-                dynamicParameters.Add("SessionValue", selectedDicitionary.Value);
+        var dynamicParameters = new DynamicParameters();
+        dynamicParameters.Add("SessionID", SessionID);
+        dynamicParameters.Add("SessionKey", selectedDicitionary.Key);
+        dynamicParameters.Add("SessionValue", selectedDicitionary.Value);
 
-                string upsertQuery = "INSERT INTO SessionTB([SessionID], [SessionKey], [SessionValue]) " +
-                                     "VALUES (@SessionID, @SessionKey, @SessionValue) ";
-                DapperORM<SessionTB>.AddOrUpdate(upsertQuery, null, dynamicParameters);
-            }
-        }
+        string upsertQuery = "INSERT INTO SessionTB([SessionID], [SessionKey], [SessionValue]) " +
+                             "VALUES (@SessionID, @SessionKey, @SessionValue) ";
+
+        // Call the asynchronous method
+        await DapperORM<SessionTB>.AddOrUpdateAsync(upsertQuery, null, dynamicParameters);
+    }
+}
+
 
         public static Common NewObj(HttpRequest pRequest, HttpResponse pResponse)
         {
@@ -93,7 +96,7 @@ namespace VisitingBook.Services
             if (!oDtn.Keys.Contains(pKey))
             {
                 oDtn.Add(pKey, pValue);
-                SetDBSessionDictionary(oDtn);
+                SetDBSessionDictionaryAsync(oDtn);
             }
             else
                 oDtn[pKey] = pValue;    

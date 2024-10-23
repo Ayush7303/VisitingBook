@@ -1,3 +1,4 @@
+@using VisitingBook.Utilities
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">Agenda</h3>
@@ -34,37 +35,7 @@
             </button>
         </div>
     </div>
-    <div class="card-body">
-        <table id="example1" class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>U</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+    @Html.CustomDataTableAjax("agendaTable", Url.Action("GetAgendaMaster", "AgendaMaster"))
 </div>
 <div class="card">
     <div class="card-header">
@@ -76,12 +47,12 @@
         </div>
     </div>
     <div class="card-body">
-        <form>
+        <form id="agendaForm">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="agendaTitle">Title</label>
-                        <input type="text" class="form-control" id="agendaTitle" placeholder="Enter Title">
+                        <input type="text" class="form-control" name="Title" id="agendaTitle" placeholder="Enter Title">
                     </div>
                 </div>
                 <!-- /.col -->
@@ -89,7 +60,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label for="desc">Description</label>
-                            <textarea class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                            <textarea class="form-control" rows="3" name="Description" id="agendaDescription" placeholder="Enter Description"></textarea>
                         </div>
                     </div>
                 </div>
@@ -97,29 +68,7 @@
             <button type="submit" class="btn btn-primary">Save</button>
 
         </form>
+@Html.CustomAjaxForm("agendaForm", "/AgendaMaster/AddAgenda", "POST", "Agenda added successfully!", "Failed to add agenda.")
 
     </div>
 </div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(function () {
-
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
-</script>

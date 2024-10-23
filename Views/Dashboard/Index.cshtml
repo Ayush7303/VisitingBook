@@ -1,8 +1,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <!-- Content Wrapper. Contains page content -->
+@using VisitingBook.Utilities
 <div class="Wrapper">
     <div>
         <!-- Content Header (Page header) -->
@@ -19,15 +19,16 @@
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid">
+           </div>
             <!-- Small boxes (Stat box) -->
             <div class="row">
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>150</h3>
-
-                            <p>Compelete Visits</p>
+                            <h3 id="visitCountDiv">Loading...</h3>
+                            @Html.CustomAjax("/Dashboard/GetVisitCount", "GET", "visitCountDiv")
+                            <p>Total Visits</p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-solid fa-handshake"></i>
@@ -40,12 +41,12 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>150</h3>
-
-                            <p>Scheduled Visits</p>
+                            <h3 id="pendingVisitCountDiv">Loading...</h3>
+                            @Html.CustomAjax("/Dashboard/GetPendingVisitCount", "GET", "pendingVisitCountDiv")
+                            <p>Pending Visits</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-calendar-days"></i>
+                            <i class="fa fa-clock-o"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -55,12 +56,12 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>150</h3>
-
-                            <p>Pending Visits</p>
+                            <h3 id="scheduledVisitCountDiv">Loading...</h3>
+                                @Html.CustomAjax("/Dashboard/GetScheduledVisitCount", "GET", "scheduledVisitCountDiv")
+                            <p>Scheduled Visits</p>
                         </div>
                         <div class="icon">
-                            <i class="fa fa-clock-o"></i>
+                            <i class="fa fa-calendar-days"></i>
                         </div>
                         <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
@@ -71,8 +72,8 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
-
+                           <h3 id="employeeCountDiv">Loading...</h3>
+@Html.CustomAjax("/Dashboard/GetEmployeeCount", "GET", "employeeCountDiv")
                             <p>Employees</p>
                         </div>
                         <div class="icon">
@@ -150,6 +151,7 @@
 
 
 <script>
+    
     $(function () {
 
         var areaChartData = {
