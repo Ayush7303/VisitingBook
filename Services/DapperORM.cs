@@ -31,18 +31,18 @@ namespace VisitingBook.Services
             }
         }
 
-        public static int AddOrUpdate(string sqlquery, T modelClass, DynamicParameters dynamicParameters = null)
+        public static async Task<int> AddOrUpdateAsync(string sqlquery, T modelClass, DynamicParameters dynamicParameters = null)
         {
             using (SqlConnection sqlCon = new SqlConnection(ConnectionString))
             {
-                sqlCon.Open();
+                await sqlCon.OpenAsync();
                 if (modelClass != null)
                 {
-                    return sqlCon.Execute(sqlquery, modelClass);
+                    return await sqlCon.ExecuteAsync(sqlquery, modelClass);
                 }
                 else
                 {
-                    return sqlCon.Execute(sqlquery, dynamicParameters);
+                    return await sqlCon.ExecuteAsync(sqlquery, dynamicParameters);
                 }
             }
         }

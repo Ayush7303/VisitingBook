@@ -40,23 +40,40 @@ namespace VisitingBook.Controllers
             return View();
         }
         [HttpGet]
+public IActionResult GetEmployeeCount()
+{
+    string employeesCountQuery = "SELECT * FROM [dbo].[UserProfile]";
+            var employeesList = DapperORM<UserProfile>.ReturnList(employeesCountQuery,null);
+            var employeeCountValue = employeesList.Count();
+    return Json(new { count = employeeCountValue });
+}
+        [HttpGet]
         public IActionResult GetVisitCount()
         {
             string countOfVisitQuery = @"SELECT v.[Status] AS Name, COUNT(v.[VisitID]) AS Count FROM [dbo].[VisitMaster] v GROUP BY v.[Status]";
             var countOfVisit=DapperORM<object>.ReturnCount(countOfVisitQuery);
             var totalVisits = countOfVisit.Values.Sum();
 
-            return Json(totalVisits);
+            return Json(new {count = totalVisits});
         }
         [HttpGet]
-        public IActionResult GetEmployeeCount()
+        public IActionResult GetPendingVisitCount()
         {
-            string employeesCountQuery = "SELECT * FROM [dbo].[UserProfile]";
-            var employeesList = DapperORM<UserProfile>.ReturnList(employeesCountQuery,null);
-            var employeeCountValue = employeesList.Count();
-
-            return Json(employeeCountValue);
+            string countOfVisitQuery = @"SELECT v.[Status] AS Name, COUNT(v.[VisitID]) AS Count FROM [dbo].[VisitMaster] v GROUP BY v.[Status]";
+            var countOfVisit=DapperORM<object>.ReturnCount(countOfVisitQuery);
+                      
+                       var pendingVisits = countOfVisit.ContainsKey("Pending") ? countOfVisit["Pending"] : 0;
+            return Json(new {count = pendingVisits});
         }
+        [HttpGet]
+        public IActionResult GetScheduledVisitCount()
+        {
+            string countOfVisitQuery = @"SELECT v.[Status] AS Name, COUNT(v.[VisitID]) AS Count FROM [dbo].[VisitMaster] v GROUP BY v.[Status]";
+            var countOfVisit=DapperORM<object>.ReturnCount(countOfVisitQuery);
+            var scheduledVisits = countOfVisit.ContainsKey("Scheduled") ? countOfVisit["Scheduled"] : 0;
+            return Json(new {count = scheduledVisits});
+        }
+      
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
