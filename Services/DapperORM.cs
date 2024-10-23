@@ -22,12 +22,11 @@ namespace VisitingBook.Services
             ConnectionString = config.GetConnectionString("ToolConnectionString");
         }
 
-        public static IEnumerable<T> ReturnList(string sqlquery, DynamicParameters param)
+        public static IEnumerable<T> ReturnList(string sqlquery, DynamicParameters param = null)
         {
             using (SqlConnection sqlCon = new SqlConnection(ConnectionString))
             {
                 sqlCon.Open();
-                // Pass the parameters to the Query method
                 return sqlCon.Query<T>(sqlquery, param);
             }
         }
@@ -47,5 +46,21 @@ namespace VisitingBook.Services
                 }
             }
         }
+       public static Dictionary<string, int> ReturnCount(string sqlquery, DynamicParameters param = null)
+{
+    using (SqlConnection sqlCon = new SqlConnection(ConnectionString))
+    {
+        sqlCon.Open();
+        var result = sqlCon.Query<(string Name, int Count)>(sqlquery, param).ToList();
+
+        // Create a dictionary to store the results
+        var nameCountDictionary = new Dictionary<string, int>();
+        foreach (var item in result)
+        {
+            nameCountDictionary[item.Name] = item.Count; // Use Name as the key
+        }
+        return nameCountDictionary;
+    }
+}
     }
 }

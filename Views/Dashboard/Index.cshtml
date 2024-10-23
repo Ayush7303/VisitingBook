@@ -1,7 +1,8 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@using VisitingBook.Utilities
+@Html.CustomAjax("/Dashboard/GetEmployeeCount", "GET", "employeeCountDiv", "employeeCountTrigger")
 <!-- Content Wrapper. Contains page content -->
 <div class="Wrapper">
     <div>
@@ -25,8 +26,10 @@
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>150</h3>
-
+                            <div id="visitCountDiv">
+                                @Html.CustomAjax("/Dashboard/GetVisitCount", "GET", "visitCountDiv",
+                                         "visitCountTrigger")
+                            </div>
                             <p>Total Visits</p>
                         </div>
                         <div class="icon">
@@ -40,7 +43,7 @@
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>@ViewBag.ScheduledVisits</h3>
 
                             <p>Scheduled Visits</p>
                         </div>
@@ -55,7 +58,7 @@
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3>@ViewBag.PendingVisits</h3>
 
                             <p>Pending Visits</p>
                         </div>
@@ -71,7 +74,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>150</h3>
+                            <h3 id="employeeCountDiv"></h3>
 
                             <p>Employees</p>
                         </div>
@@ -149,6 +152,9 @@
 
 
 <script>
+    $(document).on('ajax:success', '#employeeCountTrigger', function (event, data) {
+        $('#employeeCountDiv').text(data); // Update the count display
+    });
     $(function () {
 
         var areaChartData = {
@@ -199,39 +205,39 @@
             }
         }
 
-var donutData        = {
-      labels: [
-          'Chrome',
-          'IE',
-          'FireFox',
-          'Safari',
-          'Opera',
-          'Navigator',
-      ],
-      datasets: [
-        {
-          data: [700,500,400,600,300,100],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        var donutData = {
+            labels: [
+                'Chrome',
+                'IE',
+                'FireFox',
+                'Safari',
+                'Opera',
+                'Navigator',
+            ],
+            datasets: [
+                {
+                    data: [700, 500, 400, 600, 300, 100],
+                    backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+                }
+            ]
         }
-      ]
-    }
         //-------------
-    //- PIE CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieData        = donutData;
-    var pieOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    new Chart(pieChartCanvas, {
-      type: 'pie',
-      data: pieData,
-      options: pieOptions
-    })
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+        var pieData = donutData;
+        var pieOptions = {
+            maintainAspectRatio: false,
+            responsive: true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: pieData,
+            options: pieOptions
+        })
 
 
         //-------------
